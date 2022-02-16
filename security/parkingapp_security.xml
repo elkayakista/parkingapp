@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<odoo>
+
+ <!--Definimos una categoría de seguridad para el módulo-->
+    <record id="categoria_modulo_parkingapp" model="ir.module.category">
+    <field name="name">ParkingApp Admin</field>
+    </record>
+    <record id="parkingapp_admin_group_user" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="category_id" ref="categoria_modulo_parkingapp"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

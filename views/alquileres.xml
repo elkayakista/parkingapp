@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<odoo>
+
+   <!-- Vista de Alquileres -->
+
+    <record id="alquileres_tree_view" model="ir.ui.view">
+        <field name="name">alquiler_tree_view</field>
+        <field name="model">parkingapp.alquiler</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="fecha_reserva"/>
+                    <field name="fecha_hora_ini"/>
+                    <field name="fecha_hora_fin"/>
+                    <field name="tiempo_alquiler"/>
+                    <field name="vehiculo_id"/>
+                    <field name="estado_alquiler"/>
+                    <field name="parcela_id"/>
+                    <!--
+                    <field name="costo_alquiler"/>
+                    <field name="conductor_id"/>
+                    
+                    -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="alquileres_form_view" model="ir.ui.view">
+            <field name="name">alquiler_form_view</field>
+            <field name="model">parkingapp.alquiler</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="setear_pendiente" string="Pago Pendiente" type="object" />
+                        <button name="setear_pagado" string="Pago Realizado" type="object" />
+                        <field name="estado_alquiler" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <!--
+                                <field name="name" readonly="1"/>
+                                <field name="estado_alquiler" readonly="1"/>
+                                
+                                -->
+                                <field name="fecha_reserva" readonly="1"/>
+                                <field name="fecha_hora_ini" widget="daterange" options='{"related_end_date": "fecha_hora_fin"}'/>
+                                <field name="fecha_hora_fin" widget="daterange" options='{"related_start_date": "fecha_hora_ini"}'/>
+                                <field name="tiempo_alquiler"/>
+                                
+                            </group>
+                            <group>
+                                <field name="vehiculo_id"/>
+                                <field name="tipo_vehiculo"/>
+                                <field name="precio_alquiler_dia" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+                                <field name="monto" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
+
+                                <!--
+
+                                <field name="parcela_id"/>
+                                
+                                <field name="parcela_id" domain="[('fecha_hora_ini','<',fecha_hora_ini)]"/>
+                                
+                                
+                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo),('estacionamiento_id','=',estacionamiento)]"/>
+                                 
+                                <field name="parcela_tipo"/>
+                                
+
+                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo),('fecha_hora_ini','=','fecha_hora_ini')]"/>
+                                
+                                 <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
+                                -->
+                                
+
+                               
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+                              
+            </field>          
+    </record>
+    <!-- Calendar View -->
+    <record id="alquileres_calendar_view" model="ir.ui.view">
+            <field name="name">alquiler_calendar_view</field>
+            <field name="model">parkingapp.alquiler</field>
+            <field name="arch" type="xml">
+                <calendar string='Calendario de ALquileres' date_start='fecha_hora_ini' date_stop='fecha_hora_fin' mode='month' color='parcela_id' event_open_popup='False' quick_add="False"> 
+                    <field name="parcela_id"/>
+                    <field name="vehiculo_id"/>
+                    <field name="fecha_hora_ini"/>
+                    <field name="fecha_hora_fin"/>
+                    <field name="monto"/>
+                </calendar>           
+            </field>          
+        </record>
+</odoo>

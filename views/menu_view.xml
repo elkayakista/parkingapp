@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<odoo>
+
+
+<!-- Acciones de menu al abrir las vistas sobre los modelos  -->
+
+    <record id="estacionamiento_action" model="ir.actions.act_window">
+        <field name="name">Estacionamiento</field>
+        <field name="res_model">parkingapp.estacionamiento</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="parcela_action" model="ir.actions.act_window">
+        <field name="name">Parcela</field>
+        <field name="res_model">parkingapp.parcela</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="localidad_action" model="ir.actions.act_window">
+        <field name="name">Localidad</field>
+        <field name="res_model">parkingapp.localidad</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="tipo_vehiculo_action" model="ir.actions.act_window">
+        <field name="name">Tipo_Vehiculo</field>
+        <field name="res_model">parkingapp.tipo_vehiculo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="alquiler_action" model="ir.actions.act_window">
+        <field name="name">Alquileres</field>
+        <field name="res_model">parkingapp.alquiler</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+    <record id="vehiculo_action" model="ir.actions.act_window">
+        <field name="name">Vehículos</field>
+        <field name="res_model">parkingapp.vehiculo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="conductor_action" model="ir.actions.act_window">
+        <field name="name">Conductores</field>
+        <field name="res_model">parkingapp.conductor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pago_action" model="ir.actions.act_window">
+        <field name="name">Pagos</field>
+        <field name="res_model">parkingapp.pago</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="reporte_action" model="ir.actions.act_window">
+        <field name="name">Reportes</field>
+        <field name="res_model">parkingapp.reporte</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+ 
+  <!-- Configuración Menu Raìz Odoo -->
+  <menuitem name="ParkingApp" id="parkingapp_menu"/>
+
+  <!-- Configuración Menu Principal ParkingApp  -->
+  <menuitem name="Configuración" id="parkingapp_menu_0" parent="parkingapp_menu"/>
+
+  <menuitem name="Estacionamiento" id="parkingapp_menu_01" parent="parkingapp_menu_0" action="estacionamiento_action"/>
+  <menuitem name="Tipo de Vehiculos" id="parkingapp_menu_03" parent="parkingapp_menu_0" action="tipo_vehiculo_action"/>
+  <menuitem name="Localidades" id="parkingapp_menu_04" parent="parkingapp_menu_0" action="localidad_action"/>
+  <menuitem name="Parcelas" id="parkingapp_menu_02" parent="parkingapp_menu_0" action="parcela_action"/>
+  <menuitem name="Alquileres" id="parkingapp_menu_2" parent="parkingapp_menu" action="alquiler_action"/>
+  <menuitem name="Vehìculos" id="parkingapp_menu_3" parent="parkingapp_menu" action="vehiculo_action"/>
+  <menuitem name="Conductores" id="parkingapp_menu_4" parent="parkingapp_menu" action="conductor_action"/>
+  <menuitem name="Pagos" id="parkingapp_menu_5" parent="parkingapp_menu" action="pago_action"/>
+  <menuitem name="Reportes" id="parkingapp_menu_6" parent="parkingapp_menu" action="reporte_action"/>
+</odoo>
