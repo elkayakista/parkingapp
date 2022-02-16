@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<odoo>
+
+<!-- Vistas -->
+
+<!-- Vistas del Estacionamiento-->
+
+    <record id="estacionamiento_tree_view" model="ir.ui.view">
+        <field name="name">estacionamiento_tree_view</field>
+        <field name="model">parkingapp.estacionamiento</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="direccion"/>
+                <field name="telefono"/>
+                <field name="localidad_id"/>
+                <field name="parcela_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    
+
+<!-- Vistas del Parcelas-->
+
+    <record id="parcela_tree_view" model="ir.ui.view">
+        <field name="name">parcela_tree_view</field>
+        <field name="model">parkingapp.parcela</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="estacionamiento_id"/>
+                <field name="name"/>
+                <field name="tipo_vehiculo_id"/>
+                
+                <!--
+                <field name="alquiler_ids" widget="many2many_tags"/>
+                -->
+                
+            </tree>
+        </field>
+    </record>
+
+    <record id="parcela_form_view" model="ir.ui.view">
+        <field name="name">parcela_form_view</field>
+        <field name="model">parkingapp.parcela</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="estacionamiento_id"/>
+                        <field name="name"/>
+                        <field name="tipo_vehiculo_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!-- Vistas Tipos Vehículos-->
+
+    <record id="tipos_vehiculos_tree_view" model="ir.ui.view">
+        <field name="name">tipos_vehiculos_tree_view</field>
+        <field name="model">parkingapp.tipo_vehiculo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="precio_alquiler_dia"/>
+             </tree>
+        </field>
+    </record>
+
+ 
+<!-- Vistas de Vehículos  -->
+
+<record id="vehiculos_tree_view" model="ir.ui.view">
+        <field name="name">vehiculo_tree_view</field>
+        <field name="model">parkingapp.vehiculo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="marca"/>
+                <field name="modelo"/>
+                <field name="tipo_vehiculo_id"/>
+                <field name="conductor_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+</record>
+
+
+<!-- Vista de Conductores -->
+
+<record id="conductores_tree_view" model="ir.ui.view">
+        <field name="name">conductor_tree_view</field>
+        <field name="model">parkingapp.conductor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nombre"/>
+                <field name="dni"/>
+                <!--
+                <field name="direccion"/>
+                <field name="telefono"/>
+                <field name="mail" widget="email"/>
+                -->
+                <field name="vehiculo_ids" widget="many2many_tags"/>
+             
+            </tree>
+        </field>
+</record>
+
+
+
+
+<!-- Vista de Pago  -->
+
+<!-- Vista de Reportes  -->
+</odoo>
