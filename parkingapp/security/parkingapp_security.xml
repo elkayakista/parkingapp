@@ -1,13 +1,32 @@
 <?xml version="1.0" ?>
 <odoo>
 
- <!--Definimos una categoría de seguridad para el módulo-->
-    <record id="categoria_modulo_parkingapp" model="ir.module.category">
-    <field name="name">ParkingApp Admin</field>
+<!--Defino una Categoría de seguridad para el módulo-->
+    <record id="parkingapp.categoria" model="ir.module.category">
+    <field name="name">ParkingApp</field>
     </record>
-    <record id="parkingapp_admin_group_user" model="res.groups">
-        <field name="name">Usuario</field>
-        <field name="category_id" ref="categoria_modulo_parkingapp"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    
+    
+<!--Defino una Grupos de seguridad para el módulo-->
+
+<!--Defino Grupo Usuario Administrador-->
+
+    <record id="parkingapp_admin" model="res.groups">
+    <field name="name">Administrador</field>
+    <field name="category_id" ref="parkingapp.categoria"/> 
+    <field name="comment">Usuarios que gestionan Parking App</field>
+    <field name="implied_ids" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
     </record>
+
+
+
+<!--Defino Grupo Usuario -->
+
+    <record id="parkingapp_usuario" model="res.groups">
+    <field name="name">Usuario</field>
+    <field name="category_id" ref="parkingapp.categoria"/>
+    <field name="comment">Usuarios del sistema. Usualmente Empleados del Negocio o Conductores</field>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/> 
+    </record>
+
 </odoo>

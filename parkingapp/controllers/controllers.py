@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from odoo import http
+from odoo.http import request
 
-class SiedCloud(http.Controller):
-    @http.route('/parkingapp_module/', auth='public')
+class ParkingApp(http.Controller):
+    @http.route('/parkingapp/', auth='public')
     def index(self, **kw):
-        return "Y(°_°)Y"
+        return "Esto es ParkingApp"
+
+
 
 # class Parkingapp(http.Controller):
 #     @http.route('/parkingapp/parkingapp/', auth='public')

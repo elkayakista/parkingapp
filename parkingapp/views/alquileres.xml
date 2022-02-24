@@ -3,9 +3,10 @@
 
    <!-- Vista de Alquileres -->
 
+
     <record id="alquileres_tree_view" model="ir.ui.view">
         <field name="name">alquiler_tree_view</field>
-        <field name="model">parkingapp.alquiler</field>
+        <field name="model">alquiler</field>
         <field name="arch" type="xml">
             <tree>
                     <field name="fecha_reserva"/>
@@ -13,12 +14,13 @@
                     <field name="fecha_hora_fin"/>
                     <field name="tiempo_alquiler"/>
                     <field name="vehiculo_id"/>
-                    <field name="estado_alquiler"/>
+                    <field name="estado_alquiler" widget="badge" decoration-danger="estado_alquiler == 'pendiente'" decoration-success="estado_alquiler == 'pagado'"/>
                     <field name="parcela_id"/>
-                    <!--
-                    <field name="costo_alquiler"/>
-                    <field name="conductor_id"/>
                     
+                    <!--
+                    <field name="parcela_disponible"/>
+                    <field name="costo_alquiler"/>
+                    <field name="conductor_id"/>                   
                     -->
             </tree>
         </field>
@@ -27,7 +29,7 @@
     <!-- Form View -->
     <record id="alquileres_form_view" model="ir.ui.view">
             <field name="name">alquiler_form_view</field>
-            <field name="model">parkingapp.alquiler</field>
+            <field name="model">alquiler</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -54,28 +56,11 @@
                                 <field name="tipo_vehiculo"/>
                                 <field name="precio_alquiler_dia" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
                                 <field name="monto" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+                                
                                 <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
-
                                 <!--
-
-                                <field name="parcela_id"/>
-                                
-                                <field name="parcela_id" domain="[('fecha_hora_ini','<',fecha_hora_ini)]"/>
-                                
-                                
-                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo),('estacionamiento_id','=',estacionamiento)]"/>
-                                 
-                                <field name="parcela_tipo"/>
-                                
-
-                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo),('fecha_hora_ini','=','fecha_hora_ini')]"/>
-                                
-                                 <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
+                                <field name="parcela_disponible"/>
                                 -->
-                                
-
-                               
-
                             </group>
                         </group>
                     </sheet>
@@ -83,10 +68,12 @@
                               
             </field>          
     </record>
+
     <!-- Calendar View -->
     <record id="alquileres_calendar_view" model="ir.ui.view">
+ 
             <field name="name">alquiler_calendar_view</field>
-            <field name="model">parkingapp.alquiler</field>
+            <field name="model">alquiler</field>
             <field name="arch" type="xml">
                 <calendar string='Calendario de ALquileres' date_start='fecha_hora_ini' date_stop='fecha_hora_fin' mode='month' color='parcela_id' event_open_popup='False' quick_add="False"> 
                     <field name="parcela_id"/>
@@ -96,5 +83,28 @@
                     <field name="monto"/>
                 </calendar>           
             </field>          
-        </record>
+    </record>
+
+     <!-- Search View -->
+    <record id="alquileres_search_view" model="ir.ui.view">
+ 
+            <field name="name">alquiler_search_view</field>
+            <field name="model">alquiler</field>
+            <field name="arch" type="xml">
+                <search> 
+                    <field name="parcela_id"/>
+                    <field name="vehiculo_id"/>
+                    <field name="fecha_hora_ini"/>
+                    <field name="fecha_hora_fin"/>
+                    <filter name="estado_alquiler_pendiente" string="Pago Pendiente" domain="[('estado_alquiler','=','pendiente')]" />
+                    <filter name="estado_alquiler_pagado" string="Pago Realizado" domain="[('estado_alquiler','=','pagado')]" />
+                    <group>
+                        <filter name="estado_alquiler" string="Estado Alquiler" context="{'group_by':'estado_alquiler'}" />
+                    </group>
+                    <group>
+                        <filter name="parcela_alquiler" string="Parcela Alquiler" context="{'group_by':'parcela_id'}" />
+                    </group>
+                </search>           
+            </field>          
+    </record>
 </odoo>

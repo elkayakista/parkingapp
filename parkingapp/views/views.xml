@@ -7,7 +7,7 @@
 
     <record id="estacionamiento_tree_view" model="ir.ui.view">
         <field name="name">estacionamiento_tree_view</field>
-        <field name="model">parkingapp.estacionamiento</field>
+        <field name="model">estacionamiento</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -24,16 +24,14 @@
 
     <record id="parcela_tree_view" model="ir.ui.view">
         <field name="name">parcela_tree_view</field>
-        <field name="model">parkingapp.parcela</field>
+        <field name="model">parcela</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="estacionamiento_id"/>
                 <field name="name"/>
-                <field name="tipo_vehiculo_id"/>
-                
-                <!--
+                <field name="tipo_vehiculo_id"/>            
                 <field name="alquiler_ids" widget="many2many_tags"/>
-                -->
+
                 
             </tree>
         </field>
@@ -41,7 +39,7 @@
 
     <record id="parcela_form_view" model="ir.ui.view">
         <field name="name">parcela_form_view</field>
-        <field name="model">parkingapp.parcela</field>
+        <field name="model">parcela</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -60,7 +58,7 @@
 
     <record id="tipos_vehiculos_tree_view" model="ir.ui.view">
         <field name="name">tipos_vehiculos_tree_view</field>
-        <field name="model">parkingapp.tipo_vehiculo</field>
+        <field name="model">tipo_vehiculo</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -74,7 +72,7 @@
 
 <record id="vehiculos_tree_view" model="ir.ui.view">
         <field name="name">vehiculo_tree_view</field>
-        <field name="model">parkingapp.vehiculo</field>
+        <field name="model">vehiculo</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -91,7 +89,7 @@
 
 <record id="conductores_tree_view" model="ir.ui.view">
         <field name="name">conductor_tree_view</field>
-        <field name="model">parkingapp.conductor</field>
+        <field name="model">conductor</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -113,5 +111,5 @@
 
 <!-- Vista de Pago  -->
 
-<!-- Vista de Reportes  -->
+
 </odoo>
