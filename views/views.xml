@@ -7,7 +7,7 @@
 
     <record id="estacionamiento_tree_view" model="ir.ui.view">
         <field name="name">estacionamiento_tree_view</field>
-        <field name="model">parkingapp.estacionamiento</field>
+        <field name="model">estacionamiento</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -24,16 +24,14 @@
 
     <record id="parcela_tree_view" model="ir.ui.view">
         <field name="name">parcela_tree_view</field>
-        <field name="model">parkingapp.parcela</field>
+        <field name="model">parcela</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="estacionamiento_id"/>
                 <field name="name"/>
-                <field name="tipo_vehiculo_id"/>
-                
-                <!--
+                <field name="tipo_vehiculo_id"/>            
                 <field name="alquiler_ids" widget="many2many_tags"/>
-                -->
+
                 
             </tree>
         </field>
@@ -41,7 +39,7 @@
 
     <record id="parcela_form_view" model="ir.ui.view">
         <field name="name">parcela_form_view</field>
-        <field name="model">parkingapp.parcela</field>
+        <field name="model">parcela</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -55,12 +53,28 @@
         </field>
     </record>
 
+<!-- Search View -->
+<record id="parcelas_search_view" model="ir.ui.view">
+ 
+        <field name="name">parcelas_search_view</field>
+        <field name="model">parcela</field>
+        <field name="arch" type="xml">
+            <search> 
+                <field name="name"/>
+                <field name="estacionamiento_id"/>
+                <field name="tipo_vehiculo_id"/>
+                <group>
+                    <filter name="estacionamiento" string="Estacionamiento" context="{'group_by':'estacionamiento_id'}" />
+                </group>
+            </search>           
+        </field>          
+</record>
 
 <!-- Vistas Tipos Vehículos-->
 
     <record id="tipos_vehiculos_tree_view" model="ir.ui.view">
         <field name="name">tipos_vehiculos_tree_view</field>
-        <field name="model">parkingapp.tipo_vehiculo</field>
+        <field name="model">tipo_vehiculo</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -72,9 +86,10 @@
  
 <!-- Vistas de Vehículos  -->
 
+
 <record id="vehiculos_tree_view" model="ir.ui.view">
         <field name="name">vehiculo_tree_view</field>
-        <field name="model">parkingapp.vehiculo</field>
+        <field name="model">vehiculo</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -85,13 +100,28 @@
             </tree>
         </field>
 </record>
-
+<!-- Search View -->
+<record id="vehiculos_search_view" model="ir.ui.view">
+ 
+        <field name="name">vehiculos_search_view</field>
+        <field name="model">vehiculo</field>
+        <field name="arch" type="xml">
+            <search> 
+                <field name="name"/>
+                <field name="conductor_ids"/>
+                <field name="tipo_vehiculo_id"/>
+                <group>
+                    <filter name="tipo_vehiculo" string="Tipo Vehìculo" context="{'group_by':'tipo_vehiculo_id'}" />
+                </group>
+            </search>           
+        </field>          
+</record>
 
 <!-- Vista de Conductores -->
 
 <record id="conductores_tree_view" model="ir.ui.view">
         <field name="name">conductor_tree_view</field>
-        <field name="model">parkingapp.conductor</field>
+        <field name="model">conductor</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -112,6 +142,7 @@
 
 
 <!-- Vista de Pago  -->
+<!-- Vista de Reporte  -->
 
-<!-- Vista de Reportes  -->
+
 </odoo>

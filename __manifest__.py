@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Parkingapp",
+    'name': "parkingapp",
     'summary': """ Sistema de Gestión de Playas de Estacionamientos """,  # Module subtitle phrase
     'description': """ Este es un sistema integrado para la gestión de estacionamiento donde se puede reservar y alquilar parcelas para distinto tipode vehìculos """,
     'author': "Jorge Pluss",
@@ -16,11 +16,12 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/menu_view.xml',
-        'views/alquileres.xml'
-        #'views/templates.xml',
+        'views/alquileres.xml',
+        'security/parkingapp_security.xml',
+        'security/ir.model.access.csv',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     #'demo': [

@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 
 class estacionamiento(models.Model):
-    _name = 'parkingapp.estacionamiento'
+    _name = 'estacionamiento'
     _description = 'Estacionamiento'
 
     name = fields.Char('Nombre de Estacionamiento', required=True)
@@ -11,8 +11,8 @@ class estacionamiento(models.Model):
     telefono = fields.Integer('Teléfono')
 
  # relaciones entre tablas
-    localidad_id = fields.Many2one('parkingapp.localidad', string='Localidad')
-    parcela_ids = fields.One2many('parkingapp.parcela','estacionamiento_id',string='Parcelas')
+    localidad_id = fields.Many2one('localidad', string='Localidad')
+    parcela_ids = fields.One2many('parcela','estacionamiento_id',string='Parcelas')
 
  # restricciones por sql
     _sql_constraints=[('name_uniq','unique(name)','El nombre del estacionamiento ya existe')]
@@ -20,17 +20,17 @@ class estacionamiento(models.Model):
 
 
 class parcela(models.Model):
-    _name = 'parkingapp.parcela'
+    _name = 'parcela'
     _description = 'Parcela de Estacionaiento'
 
     name = fields.Char('Código de Parcela', required=True)
     descripcion = fields.Char('Descripción')
 
  # relaciones entre tablas
-    tipo_vehiculo_id = fields.Many2one('parkingapp.tipo_vehiculo', string='Tipo de vehìculo admitido')
-    estacionamiento_id = fields.Many2one('parkingapp.estacionamiento',string='Estacionamiento')
+    tipo_vehiculo_id = fields.Many2one('tipo_vehiculo', string='Tipo de vehìculo admitido')
+    estacionamiento_id = fields.Many2one('estacionamiento',string='Estacionamiento')
    
-    #alquiler_ids = fields.One2many('parkingapp.alquiler','',string='Alquiler')
+    alquiler_ids = fields.One2many('alquiler','parcela_id',string='Alquiler')
    
 
 # restricciones por sql
@@ -39,7 +39,7 @@ class parcela(models.Model):
 
 
 class localidad(models.Model):
-    _name = 'parkingapp.localidad'
+    _name = 'localidad'
     _description = 'Localidad'
 
     name = fields.Char('Localildad', required=True)
@@ -50,13 +50,11 @@ class localidad(models.Model):
 
 
 class tipo_vehiculo(models.Model):
-    _name = 'parkingapp.tipo_vehiculo'
+    _name = 'tipo_vehiculo'
     _description = 'Tipos de vehìculos admitidos'
 
     name = fields.Char('Tipo vehículo',required=True)
-    #tipo_vehiculo = fields.Selection([('Auto', 'Automovil'), ('Suv', 'Camioneta'), ('Moto', 'Motocicleta')], 'tipo_admitido', default="Auto")
-    
-    #precio_reserva_hora = fields.Float(string='Precio reserva x hora')
+   
     precio_alquiler_dia = fields.Float(string='Precio alquiler x día',required=True)
 
  # restricciones por sql
@@ -65,7 +63,7 @@ class tipo_vehiculo(models.Model):
     
 
 class vehiculo(models.Model):
-    _name = 'parkingapp.vehiculo'
+    _name = 'vehiculo'
     _description = 'Vehiculos de Estacionamiento'
 
     name = fields.Char('Patente', required=True)
@@ -74,9 +72,8 @@ class vehiculo(models.Model):
     
 
   # relaciones entre tablas
-    #conductor_ids = fields.Many2many('res.partner',string='Conductor de Vehìculo')
-    conductor_ids = fields.Many2many('parkingapp.conductor',string='Conductor de Vehìculo')
-    tipo_vehiculo_id = fields.Many2one('parkingapp.tipo_vehiculo', string='Tipo de vehìculo')   
+    conductor_ids = fields.Many2many('conductor',string='Conductor de Vehìculo')
+    tipo_vehiculo_id = fields.Many2one('tipo_vehiculo', string='Tipo de vehìculo')   
 
  # restricciones por sql
     _sql_constraints=[('name_uniq','unique(name)','La patente ya existe')]
@@ -84,8 +81,9 @@ class vehiculo(models.Model):
 
 
 class conductor(models.Model):
+    _name = 'conductor'
     #_inherit = 'res.partner'
-    _name = 'parkingapp.conductor'
+    
     _description = 'Conductores'
 
     name = fields.Char('Apellido', required=True)
@@ -97,8 +95,8 @@ class conductor(models.Model):
 
 
  # relaciones entre tablas
-    localidad_id = fields.Many2one('parkingapp.localidad', string='Localidad')
-    vehiculo_ids = fields.Many2many('parkingapp.vehiculo', string='Vehículo')
+    localidad_id = fields.Many2one('localidad', string='Localidad')
+    vehiculo_ids = fields.Many2many('vehiculo', string='Vehículo')
 
  # restricciones por sql
     _sql_constraints=[('dni_uniq','unique(dni)','El dni ya existe')]
@@ -106,7 +104,7 @@ class conductor(models.Model):
 ##########################################################################################################
 
 class pago(models.Model):
-    _name = 'parkingapp.pago'
+    _name = 'pago'
     _description = 'Pagos'
 
     name = fields.Char('Nombre de Pago', required=True)
@@ -114,9 +112,8 @@ class pago(models.Model):
 
 
 class reporte(models.Model):
-    _name = 'parkingapp.reporte'
-    _description = 'Reportes'
+    _name = 'reporte'
+    _description = 'Reporte'
 
     name = fields.Char('Nombre de Reporte', required=True)
-    tipo_reporte = fields.Selection([('Ganancias_Mensual', 'Ganancias_Mensual'), ('Ocupacion_Parcelas', 'Ocupacion_parcelas'), ('Disponibilidad', 'Disponibilidad')], 'tipo_reporte', default="Ganancias_Mensual")
-
+    #tipo_reporte = fields.Selection([('Ganancias_Mensual', 'Ganancias_Mensual'), ('Ocupacion_Parcelas', 'Ocupacion_parcelas'), ('Disponibilidad', 'Disponibilidad')], 'tipo_reporte', default="Ganancias_Mensual")
