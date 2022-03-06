@@ -15,9 +15,10 @@
                     <field name="tiempo_alquiler"/>
                     <field name="vehiculo_id"/>
                     <field name="conductor_id"/>
-                    <field name="estado_alquiler" widget="badge" decoration-danger="estado_alquiler == 'pendiente'" decoration-success="estado_alquiler == 'pagado'"/>
+                    <field name="parcela_cubierta"/>
                     <field name="parcela_id"/>
-                    
+                    <field name="estado_alquiler" widget="badge" decoration-danger="estado_alquiler == 'pendiente'" decoration-success="estado_alquiler == 'pagado'"/>
+
                     <!--
                     <field name="parcela_disponible"/>
                     <field name="costo_alquiler"/>
@@ -58,9 +59,10 @@
                                 <field name="tipo_vehiculo"/>
                                 <field name="precio_alquiler_dia" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
                                 <field name="monto" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
-                                
-                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
+                                <field name="parcela_cubierta"/>
+                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo),('cubierta','=',parcela_cubierta)]"/>
                                 <!--
+                                <field name="parcela_id" domain="[('tipo_vehiculo_id','=',tipo_vehiculo)]"/>
                                 <field name="parcela_disponible"/>
                                 -->
                             </group>

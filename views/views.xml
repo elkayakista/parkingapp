@@ -14,10 +14,73 @@
                 <field name="direccion"/>
                 <field name="telefono"/>
                 <field name="localidad_id"/>
+                <field name="lavadero"/>
+                <field name="inflado"/>
+                <field name="baño"/>
                 <field name="parcela_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
+
+<!-- Form View -->
+    <record id="estacionamiento_form_view" model="ir.ui.view">
+            <field name="name">estacionamiento_form_view</field>
+            <field name="model">estacionamiento</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                            <field name="name"/>
+                            <field name="direccion"/>
+                            <field name="telefono"/>
+                            <field name="localidad_id"/> 
+                            <field name="hora_apertura" widget="float_time"/> 
+                            <field name="hora_cierre" widget="float_time"/>                      
+                            </group>
+                            <group>
+                            <field name="lavadero"/>
+                            <field name="inflado"/>
+                            <field name="baño"/>
+                            </group>
+                            <group>
+                            <field name="parcela_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+                              
+            </field>          
+    </record>
+
+
+
+
+widget="float_time"
+<!-- Search View -->
+<record id="estacionamiento_search_view" model="ir.ui.view">
+ 
+        <field name="name">estacionamiento_search_view</field>
+        <field name="model">estacionamiento</field>
+        <field name="arch" type="xml">
+            <search> 
+                <field name="name"/>
+                <group>
+                    <filter name="inflado" string="Servicio de Inflado de Neumáticos" context="{'group_by':'inflado'}" />
+                </group>
+                <group>
+                    <filter name="lavadero" string="Servicio de Lavado" context="{'group_by':'lavadero'}" />
+                </group>
+                <group>
+                    <filter name="baño" string="Servicio de baño" context="{'group_by':'baño'}" />
+                </group>
+            </search>           
+        </field>          
+</record>
+
     
 
 <!-- Vistas del Parcelas-->
@@ -29,7 +92,8 @@
             <tree>
                 <field name="estacionamiento_id"/>
                 <field name="name"/>
-                <field name="tipo_vehiculo_id"/>            
+                <field name="tipo_vehiculo_id"/>
+                <field name="cubierta"/>            
                 <field name="alquiler_ids" widget="many2many_tags"/>
 
                 
@@ -47,6 +111,7 @@
                         <field name="estacionamiento_id"/>
                         <field name="name"/>
                         <field name="tipo_vehiculo_id"/>
+                        <field name="cubierta"/>
                     </group>
                 </sheet>
             </form>
@@ -63,8 +128,12 @@
                 <field name="name"/>
                 <field name="estacionamiento_id"/>
                 <field name="tipo_vehiculo_id"/>
+                <field name="cubierta"/>
                 <group>
                     <filter name="estacionamiento" string="Estacionamiento" context="{'group_by':'estacionamiento_id'}" />
+                </group>
+                <group>
+                    <filter name="cubierta" string="Cubierta" context="{'group_by':'cubierta'}" />
                 </group>
             </search>           
         </field>          

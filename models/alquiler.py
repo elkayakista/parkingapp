@@ -7,7 +7,8 @@ from odoo.exceptions import ValidationError
 
 class alquiler(models.Model):
     _name = 'alquiler'
-    _description = 'Alquiler'                  
+    _description = 'Alquiler'
+    _order = 'fecha_hora_ini desc'                  
         
     fecha_reserva = fields.Datetime(default=fields.Datetime.today)   
     fecha_hora_ini = fields.Datetime('Inicio', required=True)
@@ -42,6 +43,9 @@ class alquiler(models.Model):
     
     
     monto = fields.Float(string='Total a abonar', compute='_calcular_monto_alquiler', store=True) 
+    
+    parcela_cubierta = fields.Boolean(string='Parcela Cubierta')
+    
     parcela_id = fields.Many2one('parcela', string='Parcelas')
              
           

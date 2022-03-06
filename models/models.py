@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 
-
 class estacionamiento(models.Model):
     _name = 'estacionamiento'
     _description = 'Estacionamiento'
+    _order = 'name desc'
 
     name = fields.Char('Nombre de Estacionamiento', required=True)
     direccion = fields.Char('Dirección')
     telefono = fields.Integer('Teléfono')
+    lavadero = fields.Boolean('Servicio de Lavado')
+    inflado = fields.Boolean('Servicio de inflado de neumáticos')
+    baño = fields.Boolean('Servicio de baño')
+    hora_apertura = fields.Float('Hora de Apertura')
+    hora_cierre = fields.Float('Hora de cierre')
 
  # relaciones entre tablas
     localidad_id = fields.Many2one('localidad', string='Localidad')
@@ -25,6 +30,7 @@ class parcela(models.Model):
 
     name = fields.Char('Código de Parcela', required=True)
     descripcion = fields.Char('Descripción')
+    cubierta = fields.Boolean('Es Cubierta')
 
  # relaciones entre tablas
     tipo_vehiculo_id = fields.Many2one('tipo_vehiculo', string='Tipo de vehìculo admitido')
