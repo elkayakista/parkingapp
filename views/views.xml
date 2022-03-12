@@ -58,8 +58,6 @@
 
 
 
-
-widget="float_time"
 <!-- Search View -->
 <record id="estacionamiento_search_view" model="ir.ui.view">
  
@@ -195,23 +193,53 @@ widget="float_time"
             <tree>
                 <field name="name"/>
                 <field name="nombre"/>
-                <field name="dni"/>
+                <field name="dni"/>            
                 <!--
+                <field name="dod"/>
+                <field name="age"/>
                 <field name="direccion"/>
                 <field name="telefono"/>
                 <field name="mail" widget="email"/>
+                <field name="fecha_nacimiento" string="Fecha de nacimiento" on_change="on_change_fecha_nac(fecha_nacimiento)"/>
+                <field name="edad" string="Edad"/>
                 -->
                 <field name="vehiculo_ids" widget="many2many_tags"/>
              
             </tree>
         </field>
+
 </record>
 
+<!-- Vista de Conductores -->
 
+<record id="conductores_form_view" model="ir.ui.view">
+        <field name="name">conductor_form_view</field>
+        <field name="model">conductor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nombre"/>
+                <field name="dni"/> 
+                <field name="mail"/>           
+                <!--
+                <field name="dod"/>
+                <field name="age"/>
+                <field name="direccion"/>
+                <field name="telefono"/>
+                
+                <field name="fecha_nacimiento" string="Fecha de nacimiento" on_change="on_change_fecha_nac(fecha_nacimiento)"/>
+                <field name="edad" string="Edad"/>
+                -->
+                <field name="vehiculo_ids" widget="many2many_tags"/>
+             
+            </tree>
+        </field>
+
+</record>
 
 
 <!-- Vista de Pago  -->
 <!-- Vista de Reporte  -->
-
+<!--   widget="mask_regex" data-inputmask-regex="[a-zA-Z0-9._%-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}"   -->
 
 </odoo>

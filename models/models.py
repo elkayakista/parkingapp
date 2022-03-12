@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
+import re
 from odoo import models, fields, api
+from datetime import date, timedelta, time, datetime
+from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
+
+
+
 
 class estacionamiento(models.Model):
     _name = 'estacionamiento'
@@ -77,11 +84,11 @@ class vehiculo(models.Model):
     modelo = fields.Char('Modelo')
     
 
-  # relaciones entre tablas
+   # relaciones entre tablas
     conductor_ids = fields.Many2many('conductor',string='Conductor de Vehìculo')
     tipo_vehiculo_id = fields.Many2one('tipo_vehiculo', string='Tipo de vehìculo')   
 
- # restricciones por sql
+   # restricciones por sql
     _sql_constraints=[('name_uniq','unique(name)','La patente ya existe')]
 
 
@@ -98,15 +105,55 @@ class conductor(models.Model):
     direccion = fields.Char('Direción')
     telefono = fields.Integer('Telefono')
     mail = fields.Char('Mail')
-
-
- # relaciones entre tablas
+    edad = fields.Integer('Edad')
+    
+   # relaciones entre tablas
     localidad_id = fields.Many2one('localidad', string='Localidad')
     vehiculo_ids = fields.Many2many('vehiculo', string='Vehículo')
 
- # restricciones por sql
+   # restricciones por sql
     _sql_constraints=[('dni_uniq','unique(dni)','El dni ya existe')]
 
+   # decorador para validad la edad
+    @api.constrains('edad')
+    def _check_Edad(self):
+        for record in self:
+            if record.edad < 18:
+             raise ValidationError("Debe ser mayor a 18 años: %s" % record.edad)
+    
+    #decorador para validad el formato de email
+    @api.constrains('mail') 
+    def validate_mail(self): 
+        if self.mail: 
+            match = re.match('^[_a-z]+[0-9-]*(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', self.mail) 
+            if match == None: 
+                 raise ValidationError('No es un E-mail válido')
+
+    
+    @api.onchange('dob')
+    def set_age(self):
+        for rec in self:
+	        if rec.dob:
+                    fmt = '%Y-%m-%d'
+                    fmt2 = '%Y'
+                    dt = rec.dob
+                    d1 = datetime.strptime(str(dt), fmt).date() # 2022-03-28
+                    d2 = date.today()    # 2022-03-10
+                    rd = d2 - d1
+
+                    #rec.age = rd
+                    #rec.age = rd #977 days, 0:00:00
+                    #rec.age = datetime.strptime(d2, fmt2)
+                    #rec.age = str(d2.years) + ' años' # no anda no tiene atributo years
+                    #rec.age = datetime.strptime(str(d2), fmt2).date()
+                    #rec.age = str(rd.years) + ' años' 
+                    #rec.age = rd + ' años'
+                    
+
+    
+    dob = fields.Date('DOB')
+    age = fields.Integer('Age')
+             
 ##########################################################################################################
 
 class pago(models.Model):
