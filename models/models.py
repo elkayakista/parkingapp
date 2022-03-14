@@ -105,6 +105,7 @@ class conductor(models.Model):
     direccion = fields.Char('Direción')
     telefono = fields.Integer('Telefono')
     mail = fields.Char('Mail')
+    fecha_nacimiento = fields.Date('Fecha Nacimiento')
     edad = fields.Integer('Edad')
     
    # relaciones entre tablas
@@ -114,12 +115,7 @@ class conductor(models.Model):
    # restricciones por sql
     _sql_constraints=[('dni_uniq','unique(dni)','El dni ya existe')]
 
-   # decorador para validad la edad
-    @api.constrains('edad')
-    def _check_Edad(self):
-        for record in self:
-            if record.edad < 18:
-             raise ValidationError("Debe ser mayor a 18 años: %s" % record.edad)
+   
     
     #decorador para validad el formato de email
     @api.constrains('mail') 
@@ -129,31 +125,35 @@ class conductor(models.Model):
             if match == None: 
                  raise ValidationError('No es un E-mail válido')
 
+
+    #decorador para blanquear campo edad cuando selecciono fecha_nacimiento
+    @api.onchange('fecha_nacimiento')
+    def _on_change_limpiar_edad(self):
+        self.edad = ''
     
-    @api.onchange('dob')
+
+    #decorador para calcular edad
+    @api.onchange('fecha_nacimiento')
     def set_age(self):
-        for rec in self:
-	        if rec.dob:
-                    fmt = '%Y-%m-%d'
-                    fmt2 = '%Y'
-                    dt = rec.dob
-                    d1 = datetime.strptime(str(dt), fmt).date() # 2022-03-28
-                    d2 = date.today()    # 2022-03-10
-                    rd = d2 - d1
+            for rec in self:
+                if rec.fecha_nacimiento:
+                        fmt = '%Y-%m-%d'
+                        dt = rec.fecha_nacimiento
+                        d1 = datetime.strptime(str(dt), fmt).date() 
+                        d2 = date.today()    
+                        rd = d2 - d1
+                        rec.edad = rd.days / 365    
 
-                    #rec.age = rd
-                    #rec.age = rd #977 days, 0:00:00
-                    #rec.age = datetime.strptime(d2, fmt2)
-                    #rec.age = str(d2.years) + ' años' # no anda no tiene atributo years
-                    #rec.age = datetime.strptime(str(d2), fmt2).date()
-                    #rec.age = str(rd.years) + ' años' 
-                    #rec.age = rd + ' años'
-                    
 
+    # decorador para validad la edad
+    @api.constrains('edad')
+    def _check_Edad(self):
+        for record in self:
+            if record.edad < 18:
+             raise ValidationError("Debe ser mayor a 18 años: %s" % record.edad)
+                 
     
-    dob = fields.Date('DOB')
-    age = fields.Integer('Age')
-             
+                 
 ##########################################################################################################
 
 class pago(models.Model):
